@@ -10,7 +10,7 @@ const RespondToTicket = ({navigation}) => {
     const [error, setError] = useState(null);
     const [isEmpty, setIsEmpty] = useState(null);
     useEffect(() => {
-        fetch('http://localhost:3000/api/getAllTickets',
+        fetch('https://personal-projects.a2hosted.com/api/getAllTickets',
             {
                 method: 'GET',
                 headers: {

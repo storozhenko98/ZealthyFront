@@ -12,7 +12,7 @@ const TicketView = ({route, navigation}) => {
     const [hasImage, setHasImage] = useState(false);
     useEffect(() => {
         console.log('Retrieving ticket with id: ' + ticketId + '...')
-        fetch('https://personal-projects.a2hosted.com/api/getSpecificTicket',
+        fetch('http://localhost:3000/api/getSpecificTicket',
             {
                 method: 'POST',
                 headers: {
@@ -51,7 +51,7 @@ const TicketView = ({route, navigation}) => {
     , [ticket]);
 
     const handleBeginWork = () => {
-        fetch('https://personal-projects.a2hosted.com/api/updateTicketStatus',
+        fetch('http://localhost:3000/api/updateTicketStatus',
             {
                 method: 'POST',
                 headers: {

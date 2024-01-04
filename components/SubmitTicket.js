@@ -45,7 +45,7 @@ const SubmitTicket = ({navigation}) => {
         console.log('Form Data:', formData);
     
         try {
-            const response = await fetch('https://personal-projects.a2hosted.com/api/newTicket', {
+            const response = await fetch('http://localhost:3000/api/newTicket', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

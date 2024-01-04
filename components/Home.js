@@ -19,7 +19,7 @@ const Home = ({navigation}) => {
             >
                 <Text
                 style={styles.buttonText}
-                >Submit a Ticker</Text>
+                >Submit a Ticket</Text>
             </TouchableOpacity>
             <StatusBar style="auto" /> 
         </SafeAreaView>

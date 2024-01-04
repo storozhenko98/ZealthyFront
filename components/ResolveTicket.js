@@ -14,7 +14,7 @@ const ResolveTicket = ({route, navigation}) => {
         setResolution(text);
     }
     const handleResolveTicket = () => {
-        fetch('https://personal-projects.a2hosted.com/api/resolveTicket',
+        fetch('http://localhost:3000/api/resolveTicket',
             {
                 method: 'POST',
                 headers: {

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, SafeAreaView, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-const SubmitTicket = () => {
+const SubmitTicket = ({navigation}) => {
     const [formStep, setFormStep] = useState(0);
+    const [isUploading, setIsUploading] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [description, setDescription] = useState('');
@@ -45,10 +46,40 @@ const SubmitTicket = () => {
         }
       };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        setIsUploading(true);
         console.log('Form Data:', formData);
-        // Here you would typically send the formData to your server
+    
+        try {
+            // Send the formData to your server
+            const response = await fetch('http://localhost:3000/api/newTicket', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+            });
+    
+            if (response.ok) {
+                // Handle success
+                console.log('Submission successful');
+                alert('Submission successful 🎉');
+                navigation.navigate('ZEALTHY | Help Desk');
+            } else {
+                // Handle non-success response
+                console.log('Submission failed:', response.status);
+                alert('Submission failed 😢');
+            }
+        } catch (error) {
+            // Handle network or other errors
+            console.log('Error:', error);
+        } finally {
+            // This block will execute after handling the response or catching an error
+            setIsUploading(false);
+        }
     };
+    
+ 
 
     const handleProceed = () => {
         switch (step) {
@@ -200,6 +231,7 @@ const SubmitTicket = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
+            {!isUploading &&
                 <View style={styles.contentContainer}>
                     {renderFormStep()}
                     <View style={styles.contentContainer}>
@@ -233,6 +265,8 @@ const SubmitTicket = () => {
                     </View>
                     
                 </View>
+            }
+            {isUploading && <ActivityIndicator style={{marginTop: 200}} size="large" color="#00531a" />}
             </ScrollView>
         </SafeAreaView>
     );

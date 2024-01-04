@@ -6,9 +6,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home';
 import SubmitTicket from './components/SubmitTicket';
 import RespondToTicket from './components/RespondToTicket';
+import TicketView from './components/TicketView';
+import ImageView from './components/ImageView';
+import ResolveTicket from './components/ResolveTicket';
 
 //const Stack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
+
+
 
 // Define your theme colors
 const MyTheme = {
@@ -40,6 +45,9 @@ const AppStack = () => {
                 <Stack.Screen name="ZEALTHY | Help Desk" component={Home} /> 
                 <Stack.Screen name="Resolve Tickets" component={RespondToTicket} />
                 <Stack.Screen name="Submit a Ticket" component={SubmitTicket} />
+                <Stack.Screen name="Ticket View" component={TicketView} />
+                <Stack.Screen name="Image View" component={ImageView} />
+                <Stack.Screen name="Resolve Ticket" component={ResolveTicket} />
             </Stack.Navigator>
         </NavigationContainer>
     );

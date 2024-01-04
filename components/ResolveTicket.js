@@ -1,78 +1,67 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, ActivityIndicator, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ActivityIndicator, TouchableOpacity, ScrollView, Image, TextInput} from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native-web';
 
 
-const RespondToTicket = ({navigation}) => {
-    const [tickets, setTickets] = useState([]);
+
+
+const ResolveTicket = ({route, navigation}) => {
+    const {id } = route.params;
+    const [resolution, setResolution] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [isEmpty, setIsEmpty] = useState(null);
-    useEffect(() => {
-        fetch('http://localhost:3000/api/getAllTickets',
+    const handleResolutionChange = (text) => {
+        setResolution(text);
+    }
+    const handleResolveTicket = () => {
+        fetch('http://localhost:3000/api/resolveTicket',
             {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: id,
+                    resolution: resolution,
+                })
             })
             .then(res => res.json())
             .then(
                 (result) => {
-                    if (result.length == 0) {
-                        setIsEmpty(true);
-                    }
-                    else {
-                        setIsEmpty(false);
-                        setTickets(result);
-                    //reverse sort tickets by id
-                        setTickets(result.sort((a, b) => b.id - a.id));
-                        setLoading(false);
-                    }
-                    
+                    alert("Ticket resolved successfully! No Email since this is a demo, but you can see the resolved ticket + resolution message in tickets view.");
+                    navigation.navigate('ZEALTHY | Help Desk');
                 },
                 (error) => {
                     setError(error);
                     setLoading(false);
                     alert(error);
-                    navigation.navigate('Home');
+                    navigation.navigate('ZEALTHY | Help Desk');
                 }
             )
     }
-    , []);
     return (
-        <SafeAreaView style={styles.container}>
-            {loading && 
-            <>
-            <Text style={styles.formLabelText}>Loading...</Text>
-            <ActivityIndicator size="large" color="#00531a"/>
-            </>
-            }
-            
-            {!loading && !isEmpty &&
+        <SafeAreaView style={styles.container}>{loading &&
             <View style={styles.contentContainer}>
-                <Text style={styles.formLabelText}>Select a Ticket</Text>
-                <ScrollView style={styles.ScrollView}>
-                    {tickets.map((ticket) => (
-                        <TouchableOpacity
-                            key={ticket.id}
-                            style={styles.regularButtonColor}
-                            onPress={() => navigation.navigate('Ticket View', {ticketId: ticket.id})}
-                        >
-                            <Text style={styles.buttonText}>Ticket ID: {ticket.id}</Text>
-                            <Text style={styles.dataPreviewText}>From: {ticket.email}</Text>
-                            <Text style={styles.dataPreviewText}>Status: {ticket.status}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView>
-            </View>
-            }
-            {!loading && isEmpty &&
-            <View style={styles.contentContainer}>
-                <Text style={styles.formLabelText}>No Tickets to Respond to</Text>
-            </View>
-            }
+            <Text style={styles.formLabelText}>Ticket ID: {id}</Text>
+            <Text style={styles.formLabelText}>Resolution Message: </Text>
+            <TextInput
+                style={styles.multilineInput}
+                onChangeText={handleResolutionChange}
+                value={resolution}
+                multiline={true} />
+            <TouchableOpacity
+                style={styles.regularButtonColor}
+                onPress={handleResolveTicket}
+            >
+                <Text
+                style={styles.buttonText}   
+                >Resolve Ticket</Text>
+            </TouchableOpacity>
+
+
+                
+        </View>}
+        {loading && <ActivityIndicator size="large" color="#00531a"/>}           
         </SafeAreaView>
     );
 }
@@ -84,7 +73,7 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         padding: 20,
-        justifyContent: 'center',
+        //justifyContent: 'center',
         height: 100+'%',
     },
     input: {
@@ -118,7 +107,7 @@ const styles = StyleSheet.create({
     regularButtonColor: {
         backgroundColor: '#00531a',
         width: 100+'%',
-        height: 100,
+        height: 75,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 25,
@@ -133,6 +122,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 25,
         marginBottom: 10,
+        marginTop: 10,
     },
     buttonText: {
         color: 'white',
@@ -143,6 +133,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10,
+        marginTop: 10,
     },
     dataPreviewButton: {
         backgroundColor: '#f2f4e9',
@@ -165,7 +156,12 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     dataPreviewText: {
-        color: 'white',
+        color: 'black',
+        fontSize: 18,
+        
+    },
+    descriptionPreviewText: {
+        color: 'black',
         fontSize: 16,
         
     },
@@ -175,4 +171,5 @@ const styles = StyleSheet.create({
     
 });
 
-export default RespondToTicket;
+
+export default ResolveTicket;

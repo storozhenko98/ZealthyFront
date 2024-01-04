@@ -7,7 +7,7 @@ const Home = ({navigation}) => {
         <SafeAreaView style={styles.container}>
             <TouchableOpacity
             style={styles.regularButtonColor}
-            onPress={() => {navigation.navigate('Admin')}}
+            onPress={() => {navigation.navigate('Resolve Tickets')}}
             >
                 <Text
                 style={styles.buttonText}
@@ -15,7 +15,7 @@ const Home = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity 
             style={styles.regularButtonColor}
-            onPress={() => {navigation.navigate('User')}}
+            onPress={() => {navigation.navigate('Submit a Ticket')}}
             >
                 <Text
                 style={styles.buttonText}

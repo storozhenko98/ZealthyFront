@@ -99,7 +99,7 @@ const SubmitTicket = () => {
             case 0:
                 return (
                     <View>
-                        <Text>Name:</Text>
+                        <Text style={styles.formLabelText}>Name:</Text>
                         <TextInput
                             style={styles.input}
                             onChangeText={handleNameChange}
@@ -110,7 +110,7 @@ const SubmitTicket = () => {
             case 1:
                 return (
                     <View>
-                        <Text>Email:</Text>
+                        <Text style={styles.formLabelText}>Email:</Text>
                         <TextInput
                             style={styles.input}
                             onChangeText={handleEmailChange}
@@ -121,31 +121,75 @@ const SubmitTicket = () => {
             case 2:
                 return (
                     <View>
-                        <Text>Description:</Text>
+                        <Text style={styles.formLabelText}>Description:</Text>
                         <TextInput
-                            style={styles.input}
+                            style={styles.multilineInput}
                             onChangeText={handleDescriptionChange}
                             value={description}
+                            multiline={true}
                         />
                     </View>
                 );
             case 3:
                 return (
                     <View>
-                        <Text>Image:</Text>
-                        <Button title="Pick an image from camera roll" onPress={pickImage} />
-                        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+                        <Text style={styles.formLabelText}>Image Attachment:</Text>
+                        <TouchableOpacity
+                            style={styles.selectImageButton}
+                            onPress={pickImage}
+                        >
+                            <Text
+                                style={styles.buttonText}
+                            >Pick an image</Text>
+                        </TouchableOpacity>
+                        {image && <>
+                            <Text style={styles.formLabelText}>Image Preview:</Text>
+                            <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
+                        </>}
                     </View>
                 );
             case 4:
                 return (
                     <View>
-                        <Text>Submit:</Text>
-                        <Text>Name: {formData.name}</Text>
-                        <Text>Email: {formData.email}</Text>
-                        <Text>Description: {formData.description}</Text>
-                        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+                        <Text style={styles.formLabelText}>See if this is right:</Text>
+                        <TouchableOpacity
+                        style={styles.dataPreviewButton}
+                        onPress={() => goToStep(0)}>
+                            <Text
+                                style={styles.dataPreviewText}
+                                
+                            >Name: {formData.name}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                        style={styles.dataPreviewButton}
+                        onPress={() => goToStep(2)}>
+                            <Text
+                                style={styles.dataPreviewText}
+                               
+                            >Email: {formData.email}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                        style={styles.descriptionPreview}
+                        onPress={() => goToStep(2)}>
+                            <ScrollView>
+                                <Text
+                                    style={styles.dataPreviewText}
+                                   
+                                >Description: {formData.description}</Text>
+                            </ScrollView>
+                        </TouchableOpacity>
+                        {image && 
+                            <TouchableOpacity
+                            style={styles.imagePreview}
+                            onPress={() => goToStep(3)}>
+                                <Text
+                                    style={styles.dataPreviewText}
+                                    >Image: </Text>
+                                <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
+                            </TouchableOpacity>
+                        }
                         {!image && <Text>No image uploaded</Text>}
+                        
                     </View>
                 );
             default:
@@ -157,12 +201,37 @@ const SubmitTicket = () => {
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.contentContainer}>
-                    <View style={styles.buttonContainer}>
-                        {step !== 0 && <Button title="Previous" onPress={handlePrevStep} />}
-                        {step !== 4 && <Button title="Next" onPress={handleProceed} />}
-                        {step === 4 && <Button title="Submit" onPress={handleProceed} />}
-                    </View>
                     {renderFormStep()}
+                    <View style={styles.contentContainer}>
+                        {step !== 4 && <TouchableOpacity
+                            style={styles.regularButtonColor}
+                            onPress={handleProceed}
+                        >
+                            <Text
+                                style={styles.buttonText}
+                            >Next</Text>
+                        </TouchableOpacity>}
+
+                        {step !== 0 && <TouchableOpacity
+                            style={styles.regularButtonColor}
+                            onPress={handlePrevStep}
+                            >
+                            <Text
+                                style={styles.buttonText}
+                            >Previous</Text>
+                            </TouchableOpacity>
+                        }
+                        {step === 4 && <TouchableOpacity
+                            style={styles.regularButtonColor}
+                            onPress={handleSubmit}
+                            >
+                            <Text
+                                style={styles.buttonText}
+                            >Submit</Text>
+                            </TouchableOpacity>
+                        }
+                    </View>
+                    
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -172,25 +241,105 @@ const SubmitTicket = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fffcf8',
     },
     contentContainer: {
         padding: 20,
+        justifyContent: 'center',
     },
     input: {
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
         marginBottom: 10,
+        borderRadius: 5,
+        padding: 10,
+        fontSize: 16,
+        backgroundColor: 'white',
+    },
+    multilineInput: {
+        height: 100,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginBottom: 10,
+        borderRadius: 5,
+        padding: 10,
+        fontSize: 16,
+        backgroundColor: 'white',
     },
     buttonContainer: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         marginBottom: 20,
     },
     previewContainer: {
         marginTop: 20,
     },
+    regularButtonColor: {
+        backgroundColor: '#00531a',
+        width: 100+'%',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+        marginBottom: 10,
+        
+    },
+    selectImageButton: {
+        backgroundColor: '#057c2a',
+        width: 100+'%',
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+        marginBottom: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    formLabelText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    dataPreviewButton: {
+        backgroundColor: '#f2f4e9',
+        width: 100+'%',
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+        marginBottom: 10,
+        padding: 10,
+    },
+    descriptionPreview: {
+        backgroundColor: '#f2f4e9',
+        width: 100+'%',
+        height: 200,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+        marginBottom: 10,
+        padding: 10,
+    },
+    dataPreviewText: {
+        color: 'black',
+        fontSize: 16,
+        
+    },
+    imagePreview: {
+        backgroundColor: '#f2f4e9',
+        width: 100+'%',
+        height: 150,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+        marginBottom: 10,
+        padding: 10,
+    },
+    
 });
 
 export default SubmitTicket;

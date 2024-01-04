@@ -4,8 +4,8 @@ import * as React from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home';
-import Admin from './components/Admin';
 import SubmitTicket from './components/SubmitTicket';
+import RespondToTicket from './components/RespondToTicket';
 
 //const Stack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,8 +38,8 @@ const AppStack = () => {
                 }}
             >
                 <Stack.Screen name="ZEALTHY | Help Desk" component={Home} /> 
-                <Stack.Screen name="Resolve Tickets" component={Admin} />
-                <Stack.Screen name="File a Ticket" component={SubmitTicket} />
+                <Stack.Screen name="Resolve Tickets" component={RespondToTicket} />
+                <Stack.Screen name="Submit a Ticket" component={SubmitTicket} />
             </Stack.Navigator>
         </NavigationContainer>
     );

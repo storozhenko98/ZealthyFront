@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 
-const Home = () => {
+const RespondToTicket = () => {
     return (
         <SafeAreaView style={styles.container}>
             <Text>Admin</Text>
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Home;
+export default RespondToTicket;

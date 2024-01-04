@@ -10,19 +10,16 @@ import TicketView from './components/TicketView';
 import ImageView from './components/ImageView';
 import ResolveTicket from './components/ResolveTicket';
 
-//const Stack = createNativeStackNavigator();
+
 const Stack = createNativeStackNavigator();
 
-
-
-// Define your theme colors
 const MyTheme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
         background: '#f2f4e9',
-        // Set the header background color
-        primary: '#f2f4e9', // You can replace 'eggshell' with the actual color code
+        
+        primary: '#f2f4e9', 
     },
 };
 
@@ -35,10 +32,10 @@ const AppStack = () => {
             <Stack.Navigator
                 screenOptions={{
                     headerStyle: {
-                        backgroundColor: MyTheme.colors.primary, // Use the primary color for the header background
+                        backgroundColor: MyTheme.colors.primary, 
                     },
                     headerTitleStyle: {
-                        fontWeight: 'bold', // Set the header text to bold
+                        fontWeight: 'bold', 
                     }
                 }}
             >

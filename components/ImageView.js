@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, ActivityIndicator, TouchableOpacity, ScrollView, Image} from 'react-native';
-import React, { useState, useEffect } from 'react';
+
+import { StyleSheet, Text, View, SafeAreaView, Image} from 'react-native';
+import React from 'react';
 
 
 

@@ -3,15 +3,11 @@ import { StyleSheet, Text, View, TextInput, Button, SafeAreaView, ScrollView, To
 import * as ImagePicker from 'expo-image-picker';
 
 const SubmitTicket = ({navigation}) => {
-    const [formStep, setFormStep] = useState(0);
     const [isUploading, setIsUploading] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
-    const [preview, setPreview] = useState(null);
-    const [uploading, setUploading] = useState(false);
-    const [file, setFile] = useState(null);
     const [step, setStep] = useState(0);
     const [formData, setFormData] = useState({
         name: '',
@@ -29,9 +25,7 @@ const SubmitTicket = ({navigation}) => {
     const handleDescriptionChange = (text) => {
         setDescription(text);
     }
-
     const pickImage = async () => {
-        // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
           allowsEditing: true,
@@ -51,8 +45,7 @@ const SubmitTicket = ({navigation}) => {
         console.log('Form Data:', formData);
     
         try {
-            // Send the formData to your server
-            const response = await fetch('http://localhost:3000/api/newTicket', {
+            const response = await fetch('https://personal-projects.a2hosted.com/api/newTicket', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

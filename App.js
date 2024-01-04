@@ -1,23 +1,45 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home';
 import Admin from './components/Admin';
-import User from './components/User';
+import SubmitTicket from './components/SubmitTicket';
 
-//const Stack = createNativeStackNaviagtor();
+//const Stack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
+
+// Define your theme colors
+const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        background: '#f2f4e9',
+        // Set the header background color
+        primary: '#f2f4e9', // You can replace 'eggshell' with the actual color code
+    },
+};
+
 const AppStack = () => {
     return (
         <NavigationContainer
-        initialRouteName="Home"
+            theme={MyTheme}
+            initialRouteName="Home"
         >
-            <Stack.Navigator>
-                <Stack.Screen name="Home" component={Home} /> 
-                <Stack.Screen name="Admin" component={Admin} />
-                <Stack.Screen name="User" component={User} />
+            <Stack.Navigator
+                screenOptions={{
+                    headerStyle: {
+                        backgroundColor: MyTheme.colors.primary, // Use the primary color for the header background
+                    },
+                    headerTitleStyle: {
+                        fontWeight: 'bold', // Set the header text to bold
+                    }
+                }}
+            >
+                <Stack.Screen name="ZEALTHY | Help Desk" component={Home} /> 
+                <Stack.Screen name="Resolve Tickets" component={Admin} />
+                <Stack.Screen name="File a Ticket" component={SubmitTicket} />
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -35,5 +57,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  navigationTopBar: {
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontFamily: 'sans-serif',
   },
 });

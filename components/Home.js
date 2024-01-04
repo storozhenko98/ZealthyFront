@@ -5,12 +5,21 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-na
 const Home = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
-            <Text>Home</Text>
-            <TouchableOpacity onPress={() => {navigation.navigate('Admin')}}>
-                <Text>Admin</Text>
+            <TouchableOpacity
+            style={styles.regularButtonColor}
+            onPress={() => {navigation.navigate('Admin')}}
+            >
+                <Text
+                style={styles.buttonText}
+                >Respond to a Ticket</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {navigation.navigate('User')}}>
-                <Text>User</Text>
+            <TouchableOpacity 
+            style={styles.regularButtonColor}
+            onPress={() => {navigation.navigate('User')}}
+            >
+                <Text
+                style={styles.buttonText}
+                >Submit a Ticker</Text>
             </TouchableOpacity>
             <StatusBar style="auto" /> 
         </SafeAreaView>
@@ -20,9 +29,23 @@ const Home = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fffcf8',
         alignItems: 'center',
         justifyContent:'center',
+    },
+    regularButtonColor: {
+        backgroundColor: '#00531a',
+        width: 80+'%',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+        margin: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 
